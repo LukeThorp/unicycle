@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load static %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <title>{% block title %}Unicycle{% endblock %}</title>
+</head>
+<body>
+
+<!--Navbar-->
+{% block nav %}
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a href="{% url 'home' %}" class="navbar-brand">Unicycle</a>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+            <div class="navbar-nav">
+                {% block nav-home %}<a href="{% url 'home' %}" class="nav-item nav-link">Home</a>{% endblock %}
+                {% block nav-about %}<a href="{% url 'about' %}" class="nav-item nav-link">About</a>{% endblock %}
+                {% block nav-contact %}<a href="{% url 'contact' %}" class="nav-item nav-link">Contact</a>{% endblock %}
+            </div>
+            {% if user.is_authenticated %}
+            <div class="navbar-nav">
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Hey {{ user.username }} !</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Profile</a>
+                        <a href="#" class="dropdown-item">Settings</a>
+                        <a href="{% url 'logout' %}" class="dropdown-item">Log-out</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="navbar-nav">
+                {% block nav-sign-up %}<a href="{% url 'signup' %}" class="nav-item nav-link">Sign-up</a>{% endblock %}<br>
+                {% block nav-log-in %}<a href="{% url 'login' %}" class="nav-item nav-link">Log-in</a>{% endblock %}
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+{% endblock %}
+<!--/.Navbar-->
+
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+</body>
+</html>
